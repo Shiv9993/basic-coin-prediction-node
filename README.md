@@ -353,6 +353,9 @@ docker compose logs -f worker-1
 
 # Check worker 2 logs
 docker compose logs -f worker-2
+
+# Check worker 3 logs
+docker compose logs -f worker-3
 ```
 
 ### Check Worker node:
