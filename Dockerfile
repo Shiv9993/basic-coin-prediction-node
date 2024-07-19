@@ -11,11 +11,7 @@ RUN pip install --upgrade pip setuptools \
 
 FROM project_env
 
-# Copy the entire project
 COPY . /app/
-
-# Ensure the data directory exists
-RUN mkdir -p /app/data
 
 # Set the entrypoint command
 CMD ["gunicorn", "--conf", "/app/gunicorn_conf.py", "main:app"]
