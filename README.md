@@ -17,7 +17,41 @@
 <h1 align="center">Price Prediction Worker Node</h1>
 
 
+
+## Remove all docker files
+```
+# Stop all running containers
+docker stop $(docker ps -q)
+
+# Remove all containers
+docker rm $(docker ps -a -q)
+
+# Remove all images
+docker rmi $(docker images -q)
+
+# Remove all volumes
+docker volume rm $(docker volume ls -q)
+
+# Remove all networks
+docker network rm $(docker network ls -q)
+
+# Prune everything (containers, images, volumes, networks)
+docker system prune -a --volumes -f
+```
+## Note: Recover your mneomic
+```
+allorad keys list
+```
+keep your mnemonic safe.
+
+## Clean all basic-coin-prediction and allora-chain files
+```
+cd $HOME
+sudo rm -r basic-coin-prediction-node allora-chain
+```
+
 ## Install dependecies
+
 ```console
 # Install Packages
 sudo apt update & sudo apt upgrade -y
