@@ -26,7 +26,7 @@ docker system prune -a --volumes -f
 ```console
 allorad keys list
 ```
-keep your mnemonic safe.
+keep your keys safe.
 
 ## Clean all basic-coin-prediction and allora-chain files
 ```console
