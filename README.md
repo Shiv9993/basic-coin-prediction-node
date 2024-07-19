@@ -127,7 +127,7 @@ rm -rf docker-compose.yml && nano docker-compose.yml
 ```
 
 * Copy & Paste the following code in it
-* Replace `head-id` & `WALLET_SEED_PHRASE` in worker-1 and worker-2 containers
+* Replace `head-id` & `WALLET_SEED_PHRASE` in worker-1 , worker-2 and worker-3 containers
 ```
 version: '3'
 
