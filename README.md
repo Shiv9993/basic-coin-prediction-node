@@ -19,7 +19,7 @@
 
 
 ## Remove all docker files
-```
+```console
 # Stop all running containers
 docker stop $(docker ps -q)
 
@@ -39,13 +39,13 @@ docker network rm $(docker network ls -q)
 docker system prune -a --volumes -f
 ```
 ## Note: Recover your mneomic
-```
+```console
 allorad keys list
 ```
 keep your mnemonic safe.
 
 ## Clean all basic-coin-prediction and allora-chain files
-```
+```console
 cd $HOME
 sudo rm -r basic-coin-prediction-node allora-chain
 ```
@@ -128,7 +128,7 @@ allorad keys add testkey
 ## Install Worker
 ```console
 # Install
-cd $HOME && git clone https://github.com/Shiv9993/allora-testnet.git
+cd $HOME && git clone https://github.com/Shiv9993/basic-coin-prediction-node.git
 
 cd basic-coin-prediction-node
 
@@ -162,7 +162,7 @@ rm -rf docker-compose.yml && nano docker-compose.yml
 
 * Copy & Paste the following code in it
 * Replace `head-id` & `WALLET_SEED_PHRASE` in worker-1 , worker-2 and worker-3 containers
-```
+```console
 version: '3'
 
 services:
