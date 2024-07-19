@@ -392,14 +392,14 @@ docker compose logs -f worker-3
 ```
 
 ### Check Worker node:
-Check topic 1:
+Check topic 1 (worker 1):
 ```console
 network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
 curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
     "function_id": "bafybeigpiwl3o73zvvl6dxdqu7zqcub5mhg65jiky2xqb4rdhfmikswzqm",
     "method": "allora-inference-function.wasm",
     "parameters": null,
-    "topic": "allora-topic-1-worker",
+    "topic": "1",
     "config": {
         "env_vars": [
             {
@@ -416,19 +416,19 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Conte
             }
         ],
         "number_of_nodes": -1,
-        "timeout": 2
+        "timeout": 10
     }
 }' | jq
 ```
 
-Check topic 2:
+Check topic 2 (worker 2):
 ```console
 network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
 curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
     "function_id": "bafybeigpiwl3o73zvvl6dxdqu7zqcub5mhg65jiky2xqb4rdhfmikswzqm",
     "method": "allora-inference-function.wasm",
     "parameters": null,
-    "topic": "allora-topic-2-worker",
+    "topic": "2",
     "config": {
         "env_vars": [
             {
@@ -445,12 +445,40 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Conte
             }
         ],
         "number_of_nodes": -1,
-        "timeout": 2
+        "timeout": 10
+    }
+}' | jq
+```
+Check topic 7 (worker 3):
+```console
+network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
+curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
+    "function_id": "bafybeigpiwl3o73zvvl6dxdqu7zqcub5mhg65jiky2xqb4rdhfmikswzqm",
+    "method": "allora-inference-function.wasm",
+    "parameters": null,
+    "topic": "7",
+    "config": {
+        "env_vars": [
+            {
+                "name": "BLS_REQUEST_PATH",
+                "value": "/api"
+            },
+            {
+                "name": "ALLORA_ARG_PARAMS",
+                "value": "ETH"
+            },
+            {
+                "name": "ALLORA_BLOCK_HEIGHT_CURRENT",
+                "value": "'"${network_height}"'"
+            }
+        ],
+        "number_of_nodes": -1,
+        "timeout": 10
     }
 }' | jq
 ```
 Response: you will get code: `200` if everything is fine
-```
+  
 {
   "code": "200",
   "request_id": "9660af22-54d0-4219-a1de-3677868b715f",
