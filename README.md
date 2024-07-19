@@ -112,7 +112,7 @@ allorad keys add testkey
 ## Install Worker
 ```console
 # Install
-cd $HOME && git clone https://github.com/Shiv9993/basic-coin-prediction-node.git
+cd $HOME && git clone https://github.com/allora-network/basic-coin-prediction-node
 
 cd basic-coin-prediction-node
 
