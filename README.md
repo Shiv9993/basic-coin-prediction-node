@@ -155,7 +155,7 @@ version: '3'
 
 services:
   inference:
-    container_name: inference
+    container_name: inference-basic-eth-pred
     build:
       context: .
     command: python -u /app/app.py
@@ -175,7 +175,7 @@ services:
       - ./inference-data:/app/data
 
   updater:
-    container_name: updater
+    container_name: updater-basic-eth-pred
     build: .
     environment:
       - INFERENCE_API_ADDRESS=http://inference:8000
@@ -195,8 +195,125 @@ services:
           - updater
         ipv4_address: 172.22.0.5
 
+  worker1:
+    container_name: worker1-basic-eth-pred
+    environment:
+      - INFERENCE_API_ADDRESS=http://inference:8000
+      - HOME=/data
+    build:
+      context: .
+      dockerfile: Dockerfile_b7s
+    entrypoint:
+      - "/bin/bash"
+      - "-c"
+      - |
+        if [ ! -f /data/keys/priv.bin ]; then
+          echo "Generating new private keys..."
+          mkdir -p /data/keys
+          cd /data/keys
+          allora-keys
+        fi
+        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
+          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
+          --private-key=/data/keys/priv.bin --log-level=debug --port=9011 \
+          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/'HEAD-ID' \
+          --topic=allora-topic-1-worker \
+          --allora-chain-key-name=testkey \
+          --allora-chain-restore-mnemonic='SEEDPHRASE' \
+          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
+          --allora-chain-topic-id=1
+    volumes:
+      - ./worker1-data:/data
+    working_dir: /data
+    depends_on:
+      - inference
+      - head
+    networks:
+      eth-model-local:
+        aliases:
+          - worker1
+        ipv4_address: 172.22.0.10
+
+  worker2:
+    container_name: worker2-basic-eth-pred
+    environment:
+      - INFERENCE_API_ADDRESS=http://inference:8000
+      - HOME=/data
+    build:
+      context: .
+      dockerfile: Dockerfile_b7s
+    entrypoint:
+      - "/bin/bash"
+      - "-c"
+      - |
+        if [ ! -f /data/keys/priv.bin ]; then
+          echo "Generating new private keys..."
+          mkdir -p /data/keys
+          cd /data/keys
+          allora-keys
+        fi
+        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
+          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
+          --private-key=/data/keys/priv.bin --log-level=debug --port=9012 \
+          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/'HEAD-ID' \
+          --topic=allora-topic-2-worker \
+          --allora-chain-key-name=testkey \
+          --allora-chain-restore-mnemonic='SEEDPHRASE' \
+          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
+          --allora-chain-topic-id=2
+    volumes:
+      - ./worker2-data:/data
+    working_dir: /data
+    depends_on:
+      - inference
+      - head
+    networks:
+      eth-model-local:
+        aliases:
+          - worker2
+        ipv4_address: 172.22.0.11
+
+  worker3:
+    container_name: worker3-basic-eth-pred
+    environment:
+      - INFERENCE_API_ADDRESS=http://inference:8000
+      - HOME=/data
+    build:
+      context: .
+      dockerfile: Dockerfile_b7s
+    entrypoint:
+      - "/bin/bash"
+      - "-c"
+      - |
+        if [ ! -f /data/keys/priv.bin ]; then
+          echo "Generating new private keys..."
+          mkdir -p /data/keys
+          cd /data/keys
+          allora-keys
+        fi
+        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
+          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
+          --private-key=/data/keys/priv.bin --log-level=debug --port=9013 \
+          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/'HEAD-ID' \
+          --topic=allora-topic-7-worker \
+          --allora-chain-key-name=testkey \
+          --allora-chain-restore-mnemonic='SEEDPHRADE' \
+          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
+          --allora-chain-topic-id=7
+    volumes:
+      - ./worker3-data:/data
+    working_dir: /data
+    depends_on:
+      - inference
+      - head
+    networks:
+      eth-model-local:
+        aliases:
+          - worker3
+        ipv4_address: 172.22.0.12
+
   head:
-    container_name: head
+    container_name: head-basic-eth-pred
     image: alloranetwork/allora-inference-base-head:latest
     environment:
       - HOME=/data
@@ -212,8 +329,7 @@ services:
         fi
         allora-node --role=head --peer-db=/data/peerdb --function-db=/data/function-db  \
           --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
-          --private-key=/data/keys/priv.bin --log-level=debug --port=9010 --rest-api=:6000 \
-          --boot-nodes=/dns4/head-0-p2p.v2.testnet.allora.network/tcp/32130/p2p/12D3KooWGKY4z2iNkDMERh5ZD8NBoAX6oWzkDnQboBRGFTpoKNDF,/dns4/head-1-p2p.v2.testnet.allora.network/tcp/32131/p2p/12D3KooWQvVHh7m6N3x4ki2RAo2PQSJ8DsHxqfwAUibRGAge1veU,/dns4/head-2-p2p.v2.testnet.allora.network/tcp/32132/p2p/12D3KooWN1c9CVEr1CLVspxWaiBo4u98UqWmYuGRbxyKs9dE3GPf
+          --private-key=/data/keys/priv.bin --log-level=debug --port=9010 --rest-api=:6000
     ports:
       - "6000:6000"
     volumes:
@@ -225,126 +341,6 @@ services:
           - head
         ipv4_address: 172.22.0.100
 
-  worker-1:
-    container_name: worker-1
-    environment:
-      - INFERENCE_API_ADDRESS=http://inference:8000
-      - HOME=/data
-    build:
-      context: .
-      dockerfile: Dockerfile_b7s
-    entrypoint:
-      - "/bin/bash"
-      - "-c"
-      - |
-        if [ ! -f /data/keys/priv.bin ]; then
-          echo "Generating new private keys..."
-          mkdir -p /data/keys
-          cd /data/keys
-          allora-keys
-        fi
-        # Change boot-nodes below to the key advertised by your head
-        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
-          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
-          --private-key=/data/keys/priv.bin --log-level=debug --port=9011 \
-          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/head-id \
-          --topic=allora-topic-1-worker --allora-chain-worker-mode=worker \
-          --allora-chain-restore-mnemonic='SEEDPHRASE' \
-          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
-          --allora-chain-key-name=worker-1 \
-          --allora-chain-topic-id=1
-    volumes:
-      - ./workers/worker-1:/data
-    working_dir: /data
-    depends_on:
-      - inference
-      - head
-    networks:
-      eth-model-local:
-        aliases:
-          - worker1
-        ipv4_address: 172.22.0.12
-
-  worker-2:
-    container_name: worker-2
-    environment:
-      - INFERENCE_API_ADDRESS=http://inference:8000
-      - HOME=/data
-    build:
-      context: .
-      dockerfile: Dockerfile_b7s
-    entrypoint:
-      - "/bin/bash"
-      - "-c"
-      - |
-        if [ ! -f /data/keys/priv.bin ]; then
-          echo "Generating new private keys..."
-          mkdir -p /data/keys
-          cd /data/keys
-          allora-keys
-        fi
-        # Change boot-nodes below to the key advertised by your head
-        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
-          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
-          --private-key=/data/keys/priv.bin --log-level=debug --port=9013 \
-          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/head-id \
-          --topic=allora-topic-2-worker --allora-chain-worker-mode=worker \
-          --allora-chain-restore-mnemonic='SEEDPHRASE' \
-          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
-          --allora-chain-key-name=worker-2 \
-          --allora-chain-topic-id=2
-    volumes:
-      - ./workers/worker-2:/data
-    working_dir: /data
-    depends_on:
-      - inference
-      - head
-    networks:
-      eth-model-local:
-        aliases:
-          - worker1
-        ipv4_address: 172.22.0.13
-
-  worker-3:
-    container_name: worker-3
-    environment:
-      - INFERENCE_API_ADDRESS=http://inference:8000
-      - HOME=/data
-    build:
-      context: .
-      dockerfile: Dockerfile_b7s
-    entrypoint:
-      - "/bin/bash"
-      - "-c"
-      - |
-        if [ ! -f /data/keys/priv.bin ]; then
-          echo "Generating new private keys..."
-          mkdir -p /data/keys
-          cd /data/keys
-          allora-keys
-        fi
-        # Change boot-nodes below to the key advertised by your head
-        allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db \
-          --runtime-path=/app/runtime --runtime-cli=bls-runtime --workspace=/data/workspace \
-          --private-key=/data/keys/priv.bin --log-level=debug --port=9014 \
-          --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/head-id \
-          --topic=allora-topic-7-worker --allora-chain-worker-mode=worker \
-          --allora-chain-restore-mnemonic='SEEDPHRASE' \
-          --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ \
-          --allora-chain-key-name=worker-3 \
-          --allora-chain-topic-id=7
-    volumes:
-      - ./workers/worker-3:/data
-    working_dir: /data
-    depends_on:
-      - inference
-      - head
-    networks:
-      eth-model-local:
-        aliases:
-          - worker3
-        ipv4_address: 172.22.0.14
-
 networks:
   eth-model-local:
     driver: bridge
@@ -354,7 +350,9 @@ networks:
 
 volumes:
   inference-data:
-  workers:
+  worker1-data:
+  worker2-data:
+  worker3-data:
   head-data:
 ```
 To save: CTRL+X+Y Enter
