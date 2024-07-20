@@ -636,14 +636,4 @@ docker ps
 ```
 
 ### 🚨Error 408: when checking topic status
-```console
-# Ensure you are in the right directory
-cd $HOME && cd basic-coin-prediction-node
-
-# Remove worker container (worker-1 or worker-2)
-docker container stop worker-1
-docker container rm worker-1
-
-# Restart worker container (worker-1 or worker-2)
-docker compose up -d --build
-```
+Leave the node connected for atleast 1 to 3 hours. Then you will. find connected.Tab tak other nodes ke sath connection establish ho jayega.
