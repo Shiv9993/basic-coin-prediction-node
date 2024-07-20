@@ -636,4 +636,4 @@ docker ps
 ```
 
 ### 🚨Error 408: when checking topic status
-Leave the node connected for atleast 1 to 3 hours. Then you will. find connected.Tab tak other nodes ke sath connection establish ho jayega.
+Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 .Tab tak other nodes ke sath connection establish ho jayega.
