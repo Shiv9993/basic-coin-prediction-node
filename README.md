@@ -104,8 +104,8 @@ allorad keys add testkey
 ```
 
 ## Get Faucet
-> Connect to Allora [dashboard](https://app.allora.network?ref=eyJyZWZlcnJlcl9pZCI6IjVlNmEwMjc5LTcxNjEtNDhmYS04NGM3LWEzYzM0MGM4MGIzNyJ9) 
-> Get uAllo faucet [here](https://faucet.edgenet.allora.network/)
+
+> Get uAllo faucet for testnet v2 [here](https://faucet.testnet-1.testnet.allora.network/)
 
 
 
