@@ -116,7 +116,7 @@ cd $HOME && git clone https://github.com/allora-network/basic-coin-prediction-no
 
 cd basic-coin-prediction-node
 
-mkdir workers
+
 mkdir worker1-data worker2-data worker3-data head-data
 
 # Give certain permissions
