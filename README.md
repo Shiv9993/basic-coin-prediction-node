@@ -610,7 +610,7 @@ Response: you will get code: `200` if everything is fine
     ]
   }
 }
-```
+
 
 ### Check Updater node:
 ```console
@@ -622,7 +622,7 @@ Response:
 ```
 
 ### Check Inference node:
-```
+```console
 curl http://localhost:8000/inference/ETH
 ```
 Response:
