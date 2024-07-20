@@ -622,7 +622,7 @@ Response:
 ```
 
 ### Check Inference node:
-```console
+```
 curl http://localhost:8000/inference/ETH
 ```
 Response:
