@@ -611,6 +611,9 @@ Response: you will get code: `200` if everything is fine
   }
 }
 
+### if you got Error 408: when checking topic status
+Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 .Tab tak other nodes ke sath connection establish ho jayega.
+
 
 ### Check Updater node:
 ```console
@@ -635,5 +638,3 @@ Response:
 docker ps
 ```
 
-### 🚨Error 408: when checking topic status
-Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 .Tab tak other nodes ke sath connection establish ho jayega.
