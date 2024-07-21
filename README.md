@@ -350,8 +350,13 @@ To save: CTRL+X+Y Enter
 
 ## Run worker
 ```console
-docker compose up -d --build
+sudo docker compose build && sudo docker compose up -d
 ```
+
+### Note: if you got Error 408: when checking topic status
+Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 .Tab tak other nodes ke sath connection establish ho jayega.
+
+
 
 ## Check your node status
 ### Check running docker containers
