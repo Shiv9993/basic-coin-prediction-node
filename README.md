@@ -361,12 +361,15 @@ cd $HOME && cd basic-coin-prediction-node
 
 # Check worker 1 logs
 docker compose logs -f worker-1
+exit the log using ctrl+c
 
 # Check worker 2 logs
 docker compose logs -f worker-2
+exit the log using ctrl+c
 
 # Check worker 3 logs
 docker compose logs -f worker-3
+exit the log using ctrl+c
 ```
 
 ### Check Worker node:
