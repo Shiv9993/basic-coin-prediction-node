@@ -365,17 +365,11 @@ Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 
 cd $HOME && cd basic-coin-prediction-node
 
 # Check worker 1 logs
-docker compose logs -f worker-1
+docker ps
+# copy those container IDS
+docker logs -f CONTAINER-ID
 
-# Exit the log using ctrl+c
-
-# Check worker 2 logs
-docker compose logs -f worker-2
-
-# Exit the log using ctrl+c
-
-# Check worker 3 logs
-docker compose logs -f worker-3
+# put ur container id there, u can check it for any container
 
 # Exit the log using ctrl+c
 ```
