@@ -364,7 +364,7 @@ Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 
 # Ensure you are in the right directory
 cd $HOME && cd basic-coin-prediction-node
 
-# Check worker 1 logs
+# Check worker,inference,updater logs
 docker ps
 # copy those container IDS
 docker logs -f CONTAINER-ID
