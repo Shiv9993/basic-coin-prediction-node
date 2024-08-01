@@ -627,7 +627,7 @@ curl http://localhost:8000/inference/ETH
 ```
 Response:
 ```
-{"value":"2564.021586281073"}
+{"value":"2930.131586836733"}
 ```
 
 ### Check Docker containers
