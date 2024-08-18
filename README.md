@@ -60,7 +60,7 @@ VER=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep
 
 sudo curl -L "https://github.com/docker/compose/releases/download/"$VER"/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-chmod +x /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 # Docker Permission to user
