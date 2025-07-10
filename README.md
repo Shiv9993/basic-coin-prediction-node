@@ -354,7 +354,7 @@ sudo docker compose build && sudo docker compose up -d
 ```
 
 ### Note: if you get Error 408: while checking topic status
-Leave the node connected for atleast 1 to 3 hours. Then you will be able to see code 200 .Tab tak other nodes ke sath connection establish ho jayega.
+Leave the node connected for atleast 1 to 3 hours. Then you will be able to see code 200 
 
 
 ## Check your node status
