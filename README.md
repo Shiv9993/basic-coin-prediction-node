@@ -353,9 +353,8 @@ To save: CTRL+X+Y Enter
 sudo docker compose build && sudo docker compose up -d
 ```
 
-### Note: if you got Error 408: when checking topic status
-Leave the node connected for atleast 1 to 3 hours. Then you will. find code 200 .Tab tak other nodes ke sath connection establish ho jayega.
-
+### Note: if you get Error 408: while checking topic status
+Leave the node connected for atleast 1 to 3 hours. Then you will be able to see code 200 .Tab tak other nodes ke sath connection establish ho jayega.
 
 
 ## Check your node status
